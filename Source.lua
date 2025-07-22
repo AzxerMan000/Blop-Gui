@@ -150,10 +150,18 @@ function BlopGui.CreateLib(titleText, theme)
         return Tab
     end
 
+    local isMinimized = false
     minimizeBtn.MouseButton1Click:Connect(function()
-        local isVisible = contentFrame.Visible
-        contentFrame.Visible = not isVisible
-        tabButtons.Visible = not isVisible
+        isMinimized = not isMinimized
+        if isMinimized then
+            mainFrame:TweenSize(UDim2.new(0, 350, 0, 40), "Out", "Quad", 0.3, true)
+            tabButtons.Visible = false
+            contentFrame.Visible = false
+        else
+            mainFrame:TweenSize(UDim2.new(0, 350, 0, 250), "Out", "Quad", 0.3, true)
+            tabButtons.Visible = true
+            contentFrame.Visible = true
+        end
     end)
 
     destroyBtn.MouseButton1Click:Connect(function()
