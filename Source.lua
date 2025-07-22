@@ -1,4 +1,3 @@
-
 local BlopGui = {}
 
 function BlopGui.CreateLib(titleText, theme)
@@ -49,6 +48,11 @@ function BlopGui.CreateLib(titleText, theme)
 	contentFrame.BackgroundTransparency = 1
 	contentFrame.Parent = mainFrame
 
+	local layout = Instance.new("UIListLayout")
+	layout.Padding = UDim.new(0, 10)
+	layout.SortOrder = Enum.SortOrder.LayoutOrder
+	layout.Parent = contentFrame
+
 	local currentTab = nil
 	local tabContent = {}
 	local firstTabCreated = false
@@ -71,15 +75,13 @@ function BlopGui.CreateLib(titleText, theme)
 		Instance.new("UICorner", tabButton).CornerRadius = UDim.new(0, 10)
 
 		local function selectTab()
-			if currentTab then
-				for _, obj in pairs(tabContent[currentTab]) do
-					obj.Visible = false
+			-- Hide old tab content
+			for tab, elements in pairs(tabContent) do
+				for _, obj in pairs(elements) do
+					obj.Visible = (tab == Tab)
 				end
 			end
 			currentTab = Tab
-			for _, obj in pairs(tabContent[Tab]) do
-				obj.Visible = true
-			end
 		end
 
 		tabButton.MouseButton1Click:Connect(selectTab)
