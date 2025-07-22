@@ -23,6 +23,10 @@ function BlopGui.CreateLib(titleText, theme)
     mainFrame.Parent = screenGui
     Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 8)
 
+    local originalSize = mainFrame.Size
+    local minimizedSize = UDim2.new(0, 350, 0, 50)
+    local isMinimized = false 
+
     local titleBar = Instance.new("TextLabel")
     titleBar.Size = UDim2.new(1, -60, 0, 28)
     titleBar.Position = UDim2.new(0, 8, 0, 4)
