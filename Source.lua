@@ -160,22 +160,23 @@ layout.Parent = scrollFrame
         return Tab
     end
 
-    minimizeBtn.MouseButton1Click:Connect(function()
+    local isMinimized = false
+local originalSize = UDim2.new(0, 350, 0, 250)
+local minimizedSize = UDim2.new(0, 350, 0, 32)
+
+minimizeBtn.MouseButton1Click:Connect(function()
+    isMinimized = not isMinimized
+
     if isMinimized then
-        -- Restore
-        mainFrame.Size = originalSize
-        contentFrame.Visible = true
-        tabButtons.Visible = true
-        isMinimized = false
-    else
-        -- Minimize
         mainFrame.Size = minimizedSize
-        contentFrame.Visible = false
         tabButtons.Visible = false
-        isMinimized = true
+        if scrollFrame then scrollFrame.Visible = false end -- or contentFrame if you're still using that
+    else
+        mainFrame.Size = originalSize
+        tabButtons.Visible = true
+        if scrollFrame then scrollFrame.Visible = true end
     end
 end)
-
     destroyBtn.MouseButton1Click:Connect(function()
         screenGui:Destroy()
     end)
