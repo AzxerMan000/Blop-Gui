@@ -7,7 +7,7 @@ function BlopGui.CreateLib(titleText, theme)
     local playerGui = player:WaitForChild("PlayerGui")
 
 
-    local themes = loadstring(game:HttpGet(""))()
+    local themes = loadstring(game:HttpGet("https://raw.githubusercontent.com/AzxerMan000/Blop-Gui/main/Themes.lua"))()
     local selectedTheme = themes[themeName] or themes["Dark"]
     
 
