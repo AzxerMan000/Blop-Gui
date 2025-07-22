@@ -152,7 +152,11 @@ function BlopGui.CreateLib(titleText, theme)
         return Tab
     end
 
-    local isMinimized = false
+    
+
+local isMinimized = false
+local originalSize = UDim2.new(0, 300, 0, 250) -- Your full size
+local minimizedSize = UDim2.new(0, 300, 0, 50) -- Only title bar
 
 minimizeBtn.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
@@ -160,14 +164,13 @@ minimizeBtn.MouseButton1Click:Connect(function()
     if isMinimized then
         contentFrame.Visible = false
         tabButtons.Visible = false
-        mainFrame:TweenSize(UDim2.new(0, 300, 0, 50), "Out", "Quad", 0.25, true) -- only titlebar height
+        mainFrame:TweenSize(minimizedSize, "Out", "Quad", 0.25, true)
     else
         contentFrame.Visible = true
         tabButtons.Visible = true
-        mainFrame:TweenSize(UDim2.new(0, 300, 0, 300), "Out", "Quad", 0.25, true) -- full window
+        mainFrame:TweenSize(originalSize, "Out", "Quad", 0.25, true)
     end
 end)
-
     destroyBtn.MouseButton1Click:Connect(function()
         screenGui:Destroy()
     end)
