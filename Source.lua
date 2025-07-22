@@ -65,16 +65,20 @@ local isMinimized = false
 
     Instance.new("UIListLayout", tabButtons).Padding = UDim.new(0, 4)
 
-    local contentFrame = Instance.new("Frame")
-    contentFrame.Size = UDim2.new(1, -110, 1, -48)
-    contentFrame.Position = UDim2.new(0, 100, 0, 36)
-    contentFrame.BackgroundTransparency = 1
-    contentFrame.Parent = mainFrame
+    local scrollFrame = Instance.new("ScrollingFrame")
+scrollFrame.Size = UDim2.new(1, -110, 1, -48)
+scrollFrame.Position = UDim2.new(0, 100, 0, 36)
+scrollFrame.BackgroundTransparency = 1
+scrollFrame.ScrollBarThickness = 6
+scrollFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+scrollFrame.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+scrollFrame.Parent = mainFrame
 
-    local layout = Instance.new("UIListLayout")
-    layout.Padding = UDim.new(0, 6)
-    layout.SortOrder = Enum.SortOrder.LayoutOrder
-    layout.Parent = contentFrame
+local layout = Instance.new("UIListLayout")
+layout.Padding = UDim.new(0, 6)
+layout.SortOrder = Enum.SortOrder.LayoutOrder
+layout.Parent = scrollFrame
 
     local tabContent = {}
     local currentTab = nil
@@ -123,7 +127,7 @@ local isMinimized = false
             b.Text = name
             b.BorderSizePixel = 0
             b.Visible = false
-            b.Parent = contentFrame
+            b.Parent = scrollFrame
             Instance.new("UICorner", b).CornerRadius = UDim.new(0, 5)
             b.MouseButton1Click:Connect(function()
                 if callback then callback() end
@@ -142,7 +146,7 @@ local isMinimized = false
             b.Text = "[OFF] " .. name
             b.BorderSizePixel = 0
             b.Visible = false
-            b.Parent = contentFrame
+            b.Parent = scrollFrame
             Instance.new("UICorner", b).CornerRadius = UDim.new(0, 5)
             b.MouseButton1Click:Connect(function()
                 state = not state
