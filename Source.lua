@@ -144,33 +144,7 @@ function BlopGui.CreateLib(titleText, theme)
                 b.BackgroundColor3 = state and Color3.fromRGB(0, 170, 0) or Color3.fromRGB(50, 50, 50)
                 if callback then callback(state) end
             end)
-
-        end
-    
-
-            table.insert(tabContent[Tab], b)
-
-    end
-
-            function Tab:NewTextBox(name, placeholder, callback)
-    local textBox = Instance.new("TextBox")
-    textBox.Size = UDim2.new(1, -10, 0, 30)
-    textBox.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    textBox.TextColor3 = Color3.new(1, 1, 1)
-    textBox.Font = Enum.Font.FredokaOne
-    textBox.TextSize = 16
-    textBox.PlaceholderText = placeholder or ""
-    textBox.Text = ""
-    textBox.BorderSizePixel = 0
-    Instance.new("UICorner", textBox).CornerRadius = UDim.new(0, 6)
-
-    textBox.Parent = contentFrame
-
-    textBox.FocusLost:Connect(function(enterPressed)
-        if enterPressed and callback then
-            callback(textBox.Text)
-        end
-    end)
+            
             end
             table.insert(tabContent[Tab], b)
         end
