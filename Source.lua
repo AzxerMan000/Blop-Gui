@@ -1,4 +1,4 @@
--- BlopGui ModuleScript
+-- BlopGui ModuleScript (with working tab switching)
 
 local BlopGui = {}
 
@@ -50,18 +50,14 @@ function BlopGui.CreateLib(titleText, theme)
 	contentFrame.BackgroundTransparency = 1
 	contentFrame.Parent = mainFrame
 
-	local function clearContent()
-		for _, v in pairs(contentFrame:GetChildren()) do
-			if v:IsA("GuiObject") then
-				v:Destroy()
-			end
-		end
-	end
+	local currentTab = nil
+	local tabContent = {}
 
 	local Window = {}
 
 	function Window:NewTab(tabName)
 		local Tab = {}
+		tabContent[Tab] = {}
 
 		local tabButton = Instance.new("TextButton")
 		tabButton.Size = UDim2.new(1, -10, 0, 36)
@@ -75,7 +71,15 @@ function BlopGui.CreateLib(titleText, theme)
 		Instance.new("UICorner", tabButton).CornerRadius = UDim.new(0, 10)
 
 		tabButton.MouseButton1Click:Connect(function()
-			clearContent()
+			if currentTab then
+				for _, obj in pairs(tabContent[currentTab]) do
+					obj.Visible = false
+				end
+			end
+			currentTab = Tab
+			for _, obj in pairs(tabContent[Tab]) do
+				obj.Visible = true
+			end
 		end)
 
 		function Tab:NewButton(name, info, callback)
@@ -87,8 +91,11 @@ function BlopGui.CreateLib(titleText, theme)
 			button.TextSize = 18
 			button.Text = name
 			button.BorderSizePixel = 0
+			button.Visible = false
 			button.Parent = contentFrame
 			Instance.new("UICorner", button).CornerRadius = UDim.new(0, 10)
+
+			table.insert(tabContent[Tab], button)
 
 			button.MouseEnter:Connect(function()
 				TweenService:Create(button, TweenInfo.new(0.15), {BackgroundColor3 = accentColor}):Play()
@@ -111,8 +118,11 @@ function BlopGui.CreateLib(titleText, theme)
 			toggle.TextSize = 18
 			toggle.Text = "[OFF] " .. name
 			toggle.BorderSizePixel = 0
+			toggle.Visible = false
 			toggle.Parent = contentFrame
 			Instance.new("UICorner", toggle).CornerRadius = UDim.new(0, 10)
+
+			table.insert(tabContent[Tab], toggle)
 
 			toggle.MouseButton1Click:Connect(function()
 				state = not state
