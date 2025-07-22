@@ -164,7 +164,7 @@ function BlopGui.CreateLib(titleText, theme)
     textBox.BorderSizePixel = 0
     Instance.new("UICorner", textBox).CornerRadius = UDim.new(0, 6)
 
-    textBox.Parent = self.Section or self.ContentFrame or self -- support layouting
+    textBox.Parent = contentFrame
 
     textBox.FocusLost:Connect(function(enterPressed)
         if enterPressed and callback then
