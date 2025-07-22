@@ -21,6 +21,12 @@ function BlopGui.CreateLib(titleText, theme)
     mainFrame.Parent = screenGui
     Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 8)
 
+local originalSize = UDim2.new(0, 350, 0, 250)
+local minimizedSize = UDim2.new(0, 350, 0, 32)
+mainFrame.Size = originalSize
+local isMinimized = false
+
+    
     local titleBar = Instance.new("TextLabel")
     titleBar.Size = UDim2.new(1, -60, 0, 28)
     titleBar.Position = UDim2.new(0, 8, 0, 4)
@@ -50,6 +56,33 @@ function BlopGui.CreateLib(titleText, theme)
 
     local minimizeBtn = createTopButton("-", 2)
     local destroyBtn = createTopButton("X", 1)
+
+    -- Create the restore button
+local restoreBtn = Instance.new("TextButton")
+restoreBtn.Size = UDim2.new(0, 120, 0, 30)
+restoreBtn.Position = UDim2.new(0.5, -60, 0.5, -15) -- centered on screen
+restoreBtn.AnchorPoint = Vector2.new(0.5, 0.5)
+restoreBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+restoreBtn.Text = "Restore GUI"
+restoreBtn.TextSize = 18
+restoreBtn.Font = Enum.Font.FredokaOne
+restoreBtn.AutoButtonColor = false
+restoreBtn.Visible = false
+restoreBtn.Parent = screenGui
+Instance.new("UICorner", restoreBtn).CornerRadius = UDim.new(0, 6)
+
+-- RGB text animation
+task.spawn(function()
+	while true do
+		local t = tick()
+		restoreBtn.TextColor3 = Color3.fromRGB(
+			math.floor(math.sin(t) * 127 + 128),
+			math.floor(math.sin(t + 2) * 127 + 128),
+			math.floor(math.sin(t + 4) * 127 + 128)
+		)
+		task.wait(0.05)
+	end
+end)
 
     local tabButtons = Instance.new("Frame")
     tabButtons.Size = UDim2.new(0, 90, 1, -40)
@@ -151,10 +184,24 @@ function BlopGui.CreateLib(titleText, theme)
     end
 
     minimizeBtn.MouseButton1Click:Connect(function()
-        local isVisible = contentFrame.Visible
-        contentFrame.Visible = not isVisible
-        tabButtons.Visible = not isVisible
-    end)
+    isMinimized = true
+    mainFrame.Size = minimizedSize
+    contentFrame.Visible = false
+    tabButtons.Visible = false
+    minimizeBtn.Visible = false
+    restoreBtn.Visible = true
+end)
+
+    
+    restoreBtn.MouseButton1Click:Connect(function()
+    isMinimized = false
+    mainFrame.Size = originalSize
+    contentFrame.Visible = true
+    tabButtons.Visible = true
+    minimizeBtn.Visible = true
+    restoreBtn.Visible = false
+end)
+    
 
     destroyBtn.MouseButton1Click:Connect(function()
         screenGui:Destroy()
