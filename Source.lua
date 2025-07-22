@@ -152,11 +152,21 @@ function BlopGui.CreateLib(titleText, theme)
         return Tab
     end
 
-    minimizeBtn.MouseButton1Click:Connect(function()
-        local isVisible = contentFrame.Visible
-        contentFrame.Visible = not isVisible
-        tabButtons.Visible = not isVisible
-    end)
+    local isMinimized = false
+
+minimizeBtn.MouseButton1Click:Connect(function()
+    isMinimized = not isMinimized
+
+    if isMinimized then
+        contentFrame.Visible = false
+        tabButtons.Visible = false
+        mainFrame:TweenSize(UDim2.new(0, 300, 0, 50), "Out", "Quad", 0.25, true) -- only titlebar height
+    else
+        contentFrame.Visible = true
+        tabButtons.Visible = true
+        mainFrame:TweenSize(UDim2.new(0, 300, 0, 300), "Out", "Quad", 0.25, true) -- full window
+    end
+end)
 
     destroyBtn.MouseButton1Click:Connect(function()
         screenGui:Destroy()
