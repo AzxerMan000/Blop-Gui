@@ -12,7 +12,7 @@ function BlopGui.CreateLib(titleText, theme)
     screenGui.Parent = playerGui
 
     local mainFrame = Instance.new("Frame")
-    mainFrame.Size = UDim2.new(0, 250, 0, 150)
+    mainFrame.Size = UDim2.new(0, 350, 0, 150)
     mainFrame.Position = UDim2.new(0.5, -175, 0.5, -125)
     mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     mainFrame.BorderSizePixel = 0
