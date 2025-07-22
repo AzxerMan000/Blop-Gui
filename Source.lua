@@ -14,7 +14,7 @@ function BlopGui.CreateLib(titleText, theme)
     screenGui.Parent = playerGui
 
     local mainFrame = Instance.new("Frame")
-    mainFrame.Size = UDim2.new(0, 350, 0, 250)
+    mainFrame.Size = UDim2.new(0, 350, 0, 250
     mainFrame.Position = UDim2.new(0.5, -175, 0.5, -125)
     mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     mainFrame.BorderSizePixel = 0
@@ -23,10 +23,12 @@ function BlopGui.CreateLib(titleText, theme)
     mainFrame.Parent = screenGui
     Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 8)
 
-    local originalSize = mainFrame.Size
-    local minimizedSize = UDim2.new(0, 350, 0, 50)
-    local isMinimized = false 
-
+        local originalSize
+task.defer(function()
+    local absSize = mainFrame.AbsoluteSize
+    originalSize = UDim2.new(0, absSize.X, 0, absSize.Y)
+end)
+    
     local titleBar = Instance.new("TextLabel")
     titleBar.Size = UDim2.new(1, -60, 0, 28)
     titleBar.Position = UDim2.new(0, 8, 0, 4)
@@ -158,22 +160,27 @@ function BlopGui.CreateLib(titleText, theme)
 
     
 
+local minimizedSize = UDim2.new(0, 350, 0, 50)
 local isMinimized = false
-local originalSize = UDim2.new(0, 300, 0, 250) -- Your full size
-local minimizedSize = UDim2.new(0, 300, 0, 50) -- Only title bar
+local originalSize
+
+-- Defer original size capture to make sure it's accurate
+task.defer(function()
+	originalSize = mainFrame.Size
+end)
 
 minimizeBtn.MouseButton1Click:Connect(function()
-    isMinimized = not isMinimized
+	isMinimized = not isMinimized
 
-    if isMinimized then
-        contentFrame.Visible = false
-        tabButtons.Visible = false
-        mainFrame:TweenSize(minimizedSize, "Out", "Quad", 0.25, true)
-    else
-        contentFrame.Visible = true
-        tabButtons.Visible = true
-        mainFrame:TweenSize(originalSize, "Out", "Quad", 0.25, true)
-    end
+	if isMinimized then
+		contentFrame.Visible = false
+		tabButtons.Visible = false
+		mainFrame:TweenSize(minimizedSize, "Out", "Quad", 0.25, true)
+	else
+		contentFrame.Visible = true
+		tabButtons.Visible = true
+		mainFrame:TweenSize(originalSize, "Out", "Quad", 0.25, true)
+	end
 end)
     destroyBtn.MouseButton1Click:Connect(function()
         screenGui:Destroy()
