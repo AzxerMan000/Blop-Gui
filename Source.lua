@@ -1,4 +1,3 @@
--- BlopGui ModuleScript (with working tab switching)
 
 local BlopGui = {}
 
@@ -52,6 +51,7 @@ function BlopGui.CreateLib(titleText, theme)
 
 	local currentTab = nil
 	local tabContent = {}
+	local firstTabCreated = false
 
 	local Window = {}
 
@@ -70,7 +70,7 @@ function BlopGui.CreateLib(titleText, theme)
 		tabButton.Parent = tabButtons
 		Instance.new("UICorner", tabButton).CornerRadius = UDim.new(0, 10)
 
-		tabButton.MouseButton1Click:Connect(function()
+		local function selectTab()
 			if currentTab then
 				for _, obj in pairs(tabContent[currentTab]) do
 					obj.Visible = false
@@ -80,7 +80,15 @@ function BlopGui.CreateLib(titleText, theme)
 			for _, obj in pairs(tabContent[Tab]) do
 				obj.Visible = true
 			end
-		end)
+		end
+
+		tabButton.MouseButton1Click:Connect(selectTab)
+
+		-- Automatically select the first created tab
+		if not firstTabCreated then
+			firstTabCreated = true
+			task.defer(selectTab)
+		end
 
 		function Tab:NewButton(name, info, callback)
 			local button = Instance.new("TextButton")
