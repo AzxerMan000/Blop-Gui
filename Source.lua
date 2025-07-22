@@ -157,12 +157,19 @@ local isMinimized = false
     end
 
     minimizeBtn.MouseButton1Click:Connect(function()
-    isMinimized = true
-    mainFrame.Size = minimizedSize
-    contentFrame.Visible = false
-    tabButtons.Visible = false
-    minimizeBtn.Visible = true
-    
+    if isMinimized then
+        -- Restore
+        mainFrame.Size = originalSize
+        contentFrame.Visible = true
+        tabButtons.Visible = true
+        isMinimized = false
+    else
+        -- Minimize
+        mainFrame.Size = minimizedSize
+        contentFrame.Visible = false
+        tabButtons.Visible = false
+        isMinimized = true
+    end
 end)
 
     destroyBtn.MouseButton1Click:Connect(function()
