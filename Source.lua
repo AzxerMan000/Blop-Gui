@@ -6,11 +6,6 @@ function BlopGui.CreateLib(titleText, theme)
     local player = Players.LocalPlayer
     local playerGui = player:WaitForChild("PlayerGui")
 
-
-    local themes = loadstring(game:HttpGet("https://raw.githubusercontent.com/AzxerMan000/Blop-Gui/main/Themes.lua"))()
-    local selectedTheme = themes[themeName] or themes["Dark"]
-    
-
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = "BlopGUI"
     screenGui.ResetOnSpawn = false
@@ -19,7 +14,7 @@ function BlopGui.CreateLib(titleText, theme)
     local mainFrame = Instance.new("Frame")
     mainFrame.Size = UDim2.new(0, 350, 0, 250)
     mainFrame.Position = UDim2.new(0.5, -175, 0.5, -125)
-    mainFrame.BackgroundColor3 = selectedTheme.BackgroundColor
+    mainFrame.BackgroundColor3 = Color3.new(40,40,40)
     mainFrame.BorderSizePixel = 0
     mainFrame.Active = true
     mainFrame.Draggable = true
@@ -48,7 +43,7 @@ local isMinimized = false
         local b = Instance.new("TextButton")
         b.Size = UDim2.new(0, 24, 0, 24)
         b.Position = UDim2.new(1, -30 * pos, 0, 4)
-        b.BackgroundColor3 = selectedTheme.BackgroundColor
+        b.BackgroundColor3 = Color3.new(40,40,40)
         b.Text = txt
         b.TextColor3 = Color3.new(1, 1, 1)
         b.Font = Enum.Font.FredokaOne
@@ -97,7 +92,7 @@ layout.Parent = scrollFrame
 
         local tabBtn = Instance.new("TextButton")
         tabBtn.Size = UDim2.new(1, -8, 0, 28)
-        tabBtn.BackgroundColor3 = selectedTheme.BackgroundColor
+        tabBtn.BackgroundColor3 = Color3.new(40,40,40)
         tabBtn.TextColor3 = Color3.new(1, 1, 1)
         tabBtn.Font = Enum.Font.FredokaOne
         tabBtn.TextSize = 14
@@ -125,7 +120,7 @@ layout.Parent = scrollFrame
         function Tab:NewButton(name, info, callback)
             local b = Instance.new("TextButton")
             b.Size = UDim2.new(1, -6, 0, 28)
-            b.BackgroundColor3 = selectedTheme.BackgroundColorr
+            b.BackgroundColor3 = Color3.new(40,40,40)
             b.TextColor3 = Color3.new(1, 1, 1)
             b.Font = Enum.Font.FredokaOne
             b.TextSize = 14
@@ -144,7 +139,7 @@ layout.Parent = scrollFrame
             local state = false
             local b = Instance.new("TextButton")
             b.Size = UDim2.new(1, -6, 0, 28)
-            b.BackgroundColor3 = selectedTheme.BackgroundColor
+            b.BackgroundColor3 = Color3.new(40,40,40)
             b.TextColor3 = Color3.new(1, 1, 1)
             b.Font = Enum.Font.FredokaOne
             b.TextSize = 14
