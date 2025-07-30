@@ -32,6 +32,7 @@ if config.useKeySystem then
     box.TextSize = 16
     box.TextColor3 = Color3.new(1, 1, 1)
     box.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    box.Font = Enum.Font.FredokaOne
     box.BorderSizePixel = 0
     Instance.new("UICorner", box).CornerRadius = UDim.new(0, 6)
 
