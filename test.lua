@@ -18,7 +18,7 @@ if config.useKeySystem then
     keyGui.Name = "KeyPrompt"
 
     local frame = Instance.new("Frame", keyGui)
-    frame.Size = UDim2.new(0, 260, 0, 120)
+    frame.Size = UDim2.new(0, 280, 0, 140)
     frame.Position = UDim2.new(0.5, -130, 0.5, -60)
     frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
     frame.BorderSizePixel = 0
